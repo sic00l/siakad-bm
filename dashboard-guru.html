@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard Pengajar - SIAKAD Bustanul Mustafidin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            accent: {
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col">
+
+  <!-- Top Navigation Bar Sesuai Tema Logo -->
+  <nav class="bg-brand-700 text-white shadow-md sticky top-0 z-50 border-b border-brand-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16">
+        
+        <!-- Logo & Header -->
+        <div class="flex items-center gap-3">
+          <img src="assets/logo_MD_BM.png" alt="Logo BM" class="w-10 h-10 object-contain bg-white rounded-full p-0.5 shadow-sm" onerror="this.src='https://placehold.co/80x80/0284c7/ffffff?text=BM';">
+          <div>
+            <span class="font-extrabold text-base tracking-wide flex items-center gap-1.5">
+              SIAKAD BM <span class="bg-accent-500 text-slate-900 text-[10px] font-bold px-1.5 py-0.5 rounded">GURU</span>
+            </span>
+            <p class="text-[11px] text-brand-100 hidden sm:block">MD & TPA Bustanul Mustafidin</p>
+          </div>
+        </div>
+
+        <!-- Profil & Navigasi -->
+        <div class="flex items-center gap-4">
+          <div class="text-right hidden sm:block">
+            <div class="text-xs font-bold leading-none">Ustd. Yuni</div>
+            <div class="text-[10px] text-brand-200 mt-0.5">Asatidz Pengampu TPA & MD</div>
+          </div>
+          <a href="rapor-santri.html" class="px-3 py-1.5 bg-brand-800 hover:bg-brand-900 text-xs font-bold rounded-lg border border-brand-600 transition-colors flex items-center gap-1.5">
+            <i class="fa-solid fa-file-invoice text-accent-400"></i>
+            <span class="hidden sm:inline">Rapor Santri</span>
+          </a>
+          <a href="index.html" class="p-2 text-brand-200 hover:text-white transition-colors" title="Keluar">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Konten Utama Dashboard -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 space-y-6">
+    
+    <!-- Banner Sambutan -->
+    <div class="bg-gradient-to-r from-brand-700 via-brand-800 to-brand-900 rounded-3xl p-6 sm:p-8 text-white shadow-xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+      <div class="space-y-2 relative z-10">
+        <div class="inline-flex items-center gap-2 px-3 py-1 bg-white/10 rounded-full text-xs font-semibold text-accent-400 border border-white/10">
+          <i class="fa-solid fa-calendar-day"></i> Jadwal Aktif Mengajar: <strong id="lblHariIni">Senin</strong>
+        </div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight">Ahlan wa Sahlan, Pengajar BM!</h2>
+        <p class="text-xs sm:text-sm text-brand-100 max-w-2xl leading-relaxed">
+          Silakan lakukan pengisian presensi kehadiran santri harian dan input nilai evaluasi berdasarkan jadwal mengajar Anda.
+        </p>
+      </div>
+
+      <div class="bg-white/10 backdrop-blur-md border border-white/10 rounded-2xl p-4 flex items-center gap-4 min-w-[240px] relative z-10">
+        <div class="w-12 h-12 rounded-xl bg-accent-500 text-slate-900 flex items-center justify-center text-xl font-bold">
+          <i class="fa-solid fa-user-check"></i>
+        </div>
+        <div>
+          <div class="text-xs text-brand-200">Presensi Guru Hari Ini</div>
+          <div class="text-sm font-bold text-white flex items-center gap-1.5 mt-0.5">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Hadir Tercatat
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Filter Kelas & Mapel -->
+    <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div>
+        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Jenjang Pendidikan</label>
+        <select id="selJenjang" onchange="handleJenjangChange()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-brand-600">
+          <option value="TPA" selected>TPA (Taman Pendidikan Al-Quran)</option>
+          <option value="MD">MD (Madrasah Diniyah)</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Pilihan Kelas</label>
+        <select id="selKelas" onchange="renderStudentTable()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-brand-600">
+          <option value="A">Kelas A</option>
+          <option value="B">Kelas B</option>
+          <option value="C">Kelas C</option>
+          <option value="Intensif">Kelas Intensif</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Mata Pelajaran (Mapel)</label>
+        <select id="selMapel" onchange="renderStudentTable()" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-brand-600">
+          <option value="At-Tanzil">At-Tanzil</option>
+          <option value="Akhlaq">Akhlaq</option>
+          <option value="Al-Qur'an">Al-Qur'an</option>
+          <option value="Tauhid">Tauhid</option>
+          <option value="Fiqih">Fiqih</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-600 uppercase tracking-wider mb-1.5">Periode Penilaian</label>
+        <select id="selPeriode" class="w-full px-3 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold focus:ring-2 focus:ring-brand-600">
+          <option value="Evaluasi 1" selected>Evaluasi 1 (TPA) / UAS 1 (MD)</option>
+          <option value="Evaluasi 2">Evaluasi 2</option>
+          <option value="Evaluasi 3">Evaluasi 3</option>
+          <option value="Semester 1">Semester 1</option>
+          <option value="Semester 2">Semester 2</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tabel Santri & Form Input -->
+    <div class="bg-white rounded-3xl border border-slate-200 shadow-sm overflow-hidden">
+      <div class="p-5 sm:p-6 border-b border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/50">
+        <div>
+          <h3 class="font-extrabold text-slate-900 text-lg flex items-center gap-2">
+            <i class="fa-solid fa-list-check text-brand-600"></i>
+            Daftar Santri & Input Nilai Terpadu
+          </h3>
+          <p class="text-xs text-slate-500 mt-0.5">Data terhubung langsung dengan rekap resmi madrasah.</p>
+        </div>
+
+        <button onclick="simpanSemuaData()" class="px-4 py-2.5 bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold rounded-xl shadow-md shadow-brand-600/20 transition-all flex items-center gap-2">
+          <i class="fa-solid fa-cloud-arrow-up"></i>
+          <span>Simpan Perubahan ke Database</span>
+        </button>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-sm">
+          <thead>
+            <tr class="bg-slate-100/80 text-slate-700 text-xs uppercase tracking-wider border-b border-slate-200">
+              <th class="py-3.5 px-4 font-bold text-center w-12">No</th>
+              <th class="py-3.5 px-4 font-bold w-28">Kode Murid</th>
+              <th class="py-3.5 px-4 font-bold">Nama Santri</th>
+              <th class="py-3.5 px-4 font-bold text-center w-48">Presensi Hari Ini</th>
+              <th class="py-3.5 px-4 font-bold text-center w-36">Nilai Angka</th>
+              <th class="py-3.5 px-4 font-bold w-48">Catatan Guru</th>
+            </tr>
+          </thead>
+          <tbody id="studentTableBody" class="divide-y divide-slate-200 text-slate-800">
+            <!-- Diisi otomatis -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Alert Notifikasi -->
+      <div id="saveToast" class="p-4 bg-emerald-50 border-t border-emerald-200 text-emerald-800 text-xs font-semibold hidden flex items-center justify-between">
+        <div class="flex items-center gap-2">
+          <i class="fa-solid fa-circle-check text-emerald-600 text-base"></i>
+          <span>Data presensi dan nilai santri berhasil disimpan ke database!</span>
+        </div>
+        <button onclick="document.getElementById('saveToast').classList.add('hidden')" class="text-emerald-700 hover:text-emerald-900 font-bold">&times;</button>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    <p>&copy; 2026 MD & TPA Bustanul Mustafidin. Hak Cipta Dilindungi.</p>
+  </footer>
+
+  <script>
+    const sampleStudents = {
+      'TPA-A': [
+        { kode: 'BM-TPA-001', nama: "A'la Ayana Yasin", nilai: 91, status: 'H' },
+        { kode: 'BM-TPA-002', nama: "Zara Almaira Rahman", nilai: 100, status: 'H' },
+        { kode: 'BM-TPA-003', nama: "Isbat Samlan", nilai: 99, status: 'H' },
+        { kode: 'BM-TPA-004', nama: "Badrud Tamam", nilai: 100, status: 'I' },
+        { kode: 'BM-TPA-005', nama: "Mu'tasim Billah", nilai: 100, status: 'H' },
+        { kode: 'BM-TPA-006', nama: "Moh. Zain", nilai: 99, status: 'S' },
+        { kode: 'BM-TPA-007', nama: "Farel", nilai: 95, status: 'H' },
+        { kode: 'BM-TPA-008', nama: "Moh. Khoiru Alvi Syahr", nilai: 98, status: 'H' }
+      ],
+      'MD-1': [
+        { kode: 'BM-MD-101', nama: "Azmia", nilai: 100, status: 'H' },
+        { kode: 'BM-MD-102', nama: "Fara", nilai: 95, status: 'H' },
+        { kode: 'BM-MD-103', nama: "Fely", nilai: 64, status: 'H' },
+        { kode: 'BM-MD-104', nama: "Kayra", nilai: 100, status: 'H' },
+        { kode: 'BM-MD-105', nama: "Calya", nilai: 100, status: 'H' },
+        { kode: 'BM-MD-106', nama: "Yusron", nilai: 85, status: 'H' }
+      ]
+    };
+
+    function handleJenjangChange() {
+      const jenjang = document.getElementById('selJenjang').value;
+      const selKelas = document.getElementById('selKelas');
+      const selMapel = document.getElementById('selMapel');
+
+      if (jenjang === 'TPA') {
+        selKelas.innerHTML = `
+          <option value="A">Kelas A</option>
+          <option value="B">Kelas B</option>
+          <option value="C">Kelas C</option>
+          <option value="Intensif">Kelas Intensif</option>
+        `;
+        selMapel.innerHTML = `
+          <option value="At-Tanzil">At-Tanzil</option>
+          <option value="Akhlaq">Akhlaq</option>
+          <option value="Al-Qur'an">Al-Qur'an</option>
+          <option value="Tauhid">Tauhid</option>
+          <option value="Fiqih">Fiqih</option>
+        `;
+      } else {
+        selKelas.innerHTML = `
+          <option value="1">Kelas 1</option>
+          <option value="2">Kelas 2</option>
+          <option value="3">Kelas 3</option>
+          <option value="4">Kelas 4</option>
+          <option value="5">Kelas 5</option>
+        `;
+        selMapel.innerHTML = `
+          <option value="Fiqih">Fiqih</option>
+          <option value="Bahasa Arab">Bahasa Arab</option>
+          <option value="Tajwid">Tajwid</option>
+          <option value="Parpesan">Parpesan</option>
+          <option value="Kaifiyatus Sholah">Kaifiyatus Sholah</option>
+        `;
+      }
+      renderStudentTable();
+    }
+
+    function renderStudentTable() {
+      const jenjang = document.getElementById('selJenjang').value;
+      const kelas = document.getElementById('selKelas').value;
+      const key = `${jenjang}-${kelas}`;
+      const data = sampleStudents[key] || sampleStudents['TPA-A'];
+      const tbody = document.getElementById('studentTableBody');
+      tbody.innerHTML = '';
+
+      data.forEach((st, idx) => {
+        const tr = document.createElement('tr');
+        tr.className = "hover:bg-brand-50/40 transition-colors";
+        tr.innerHTML = `
+          <td class="py-3 px-4 text-center font-bold text-slate-500">${idx + 1}</td>
+          <td class="py-3 px-4 font-mono text-xs font-bold text-brand-700">${st.kode}</td>
+          <td class="py-3 px-4 font-semibold text-slate-900">${st.nama}</td>
+          <td class="py-3 px-4 text-center">
+            <div class="inline-flex rounded-lg bg-slate-100 p-1 border border-slate-200">
+              <label class="px-2 py-1 text-xs font-bold rounded cursor-pointer ${st.status === 'H' ? 'bg-emerald-600 text-white' : 'text-slate-600'}">
+                <input type="radio" name="att_${idx}" value="H" ${st.status === 'H' ? 'checked' : ''} class="hidden"> H
+              </label>
+              <label class="px-2 py-1 text-xs font-bold rounded cursor-pointer ${st.status === 'I' ? 'bg-amber-500 text-white' : 'text-slate-600'}">
+                <input type="radio" name="att_${idx}" value="I" ${st.status === 'I' ? 'checked' : ''} class="hidden"> I
+              </label>
+              <label class="px-2 py-1 text-xs font-bold rounded cursor-pointer ${st.status === 'S' ? 'bg-sky-500 text-white' : 'text-slate-600'}">
+                <input type="radio" name="att_${idx}" value="S" ${st.status === 'S' ? 'checked' : ''} class="hidden"> S
+              </label>
+              <label class="px-2 py-1 text-xs font-bold rounded cursor-pointer ${st.status === 'A' ? 'bg-rose-600 text-white' : 'text-slate-600'}">
+                <input type="radio" name="att_${idx}" value="A" ${st.status === 'A' ? 'checked' : ''} class="hidden"> A
+              </label>
+            </div>
+          </td>
+          <td class="py-3 px-4 text-center">
+            <input type="number" min="0" max="100" value="${st.nilai}" 
+                   class="w-20 text-center py-1.5 px-2 bg-slate-50 border border-slate-300 rounded-lg font-bold text-brand-800 focus:ring-2 focus:ring-brand-600 focus:bg-white text-sm">
+          </td>
+          <td class="py-3 px-4">
+            <input type="text" placeholder="Catatan santri..." class="w-full py-1.5 px-3 bg-slate-50 border border-slate-300 rounded-lg text-xs focus:ring-2 focus:ring-brand-600">
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    function simpanSemuaData() {
+      const toast = document.getElementById('saveToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => { toast.classList.add('hidden'); }, 3500);
+    }
+
+    window.onload = function() {
+      renderStudentTable();
+    };
+  </script>
+</body>
+</html>

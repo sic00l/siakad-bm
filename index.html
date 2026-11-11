@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIAKAD - MD & TPA Bustanul Mustafidin</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1',
+              800: '#075985',
+              900: '#0c4a6e',
+            },
+            accent: {
+              400: '#facc15',
+              500: '#eab308',
+              600: '#ca8a04',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            arabic: ['"Amiri"', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between selection:bg-brand-500 selection:text-white">
+
+  <!-- Header / Navbar -->
+  <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-slate-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="assets/logo_MD_BM.png" alt="Logo BM" class="w-12 h-12 object-contain drop-shadow-sm" onerror="this.src='https://placehold.co/100x100/0284c7/ffffff?text=BM';">
+        <div>
+          <h1 class="font-extrabold text-lg text-slate-900 leading-tight">SIAKAD BUSTANUL MUSTAFIDIN</h1>
+          <p class="text-xs font-semibold text-brand-700 tracking-wider">TPA & MADRASAH DINIYAH • PALENGAAN LAOK</p>
+        </div>
+      </div>
+      <div class="hidden md:flex items-center gap-4 text-xs font-medium text-slate-600 bg-slate-100 px-3 py-1.5 rounded-full border border-slate-200">
+        <span class="flex items-center gap-1.5"><i class="fa-solid fa-circle-check text-emerald-500 text-[10px]"></i> Server Online</span>
+        <span class="text-slate-300">|</span>
+        <span>T.A. 2025/2026</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Konten Utama: Branding & Form Login -->
+  <main class="flex-grow flex items-center justify-center p-4 sm:p-6 lg:p-8">
+    <div class="max-w-5xl w-full grid grid-cols-1 lg:grid-cols-12 bg-white rounded-3xl shadow-xl border border-slate-200/80 overflow-hidden">
+      
+      <!-- Sisi Kiri: Branding Bernuansa Biru BM & Aksen Kuning -->
+      <div class="lg:col-span-5 bg-gradient-to-br from-brand-700 via-brand-800 to-brand-900 p-8 sm:p-10 text-white flex flex-col justify-between relative overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-56 h-56 rounded-full bg-brand-500/20 blur-2xl"></div>
+        <div class="absolute -left-16 -bottom-16 w-56 h-56 rounded-full bg-accent-500/20 blur-2xl"></div>
+        
+        <div class="relative z-10">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-xs font-semibold text-accent-400 border border-white/10 mb-6">
+            <i class="fa-solid fa-star"></i> Sistem Informasi Akademik
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold leading-snug tracking-tight mb-3">
+            Lembaga Pendidikan Islam <br><span class="text-accent-400">MD. Bustanul Mustafidin</span>
+          </h2>
+          <p class="text-brand-100 text-sm leading-relaxed mb-6 font-arabic text-right text-lg">
+            يَرْفَعِ اللّٰهُ الَّذِيْنَ اٰمَنُوْا مِنْكُمْ وَالَّذِيْنَ اُوْتُوا الْعِلْمَ دَرَجٰتٍ
+          </p>
+          <p class="text-brand-100 text-xs leading-relaxed">
+            Portal terintegrasi presensi harian asatidz dan santri, input nilai evaluasi/semester, dan transparansi rapor online wali murid.
+          </p>
+        </div>
+
+        <div class="relative z-10 pt-8 mt-8 border-t border-white/10 text-xs text-brand-200 space-y-2">
+          <div class="flex items-center gap-2"><i class="fa-solid fa-shield-halved text-accent-400"></i> Hak Akses: Guru Tugas, Asatid, Honorer, Wali Murid</div>
+          <div class="flex items-center gap-2"><i class="fa-solid fa-location-dot text-accent-400"></i> Palengaan Laok, Palengaan, Pamekasan</div>
+        </div>
+      </div>
+
+      <!-- Sisi Kanan: Form Login & Register -->
+      <div class="lg:col-span-7 p-6 sm:p-10 flex flex-col justify-center">
+        <!-- Switch Tab -->
+        <div class="flex p-1 bg-slate-100 rounded-2xl mb-8 border border-slate-200">
+          <button id="tabLoginBtn" onclick="switchAuthTab('login')" class="flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all shadow-sm bg-white text-brand-700">
+            <i class="fa-solid fa-right-to-bracket mr-2"></i>Masuk Portal
+          </button>
+          <button id="tabRegisterBtn" onclick="switchAuthTab('register')" class="flex-1 py-2.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-xl transition-all">
+            <i class="fa-solid fa-user-plus mr-2"></i>Daftar Wali Murid
+          </button>
+        </div>
+
+        <!-- FORM 1: LOGIN MULTI-ROLE -->
+        <form id="formLogin" onsubmit="handleLoginSubmit(event)" class="space-y-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Username Pengguna</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                <i class="fa-regular fa-user"></i>
+              </span>
+              <input type="text" id="loginUsername" required placeholder="Contoh: gurutugas, subahri, yuni" 
+                     class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:bg-white transition-all">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1.5">Kata Sandi</label>
+            <div class="relative">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none text-slate-400">
+                <i class="fa-solid fa-lock"></i>
+              </span>
+              <input type="password" id="loginPassword" required placeholder="Masukkan kata sandi" 
+                     class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-brand-600 focus:bg-white transition-all">
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-xs pt-1">
+            <label class="flex items-center gap-2 cursor-pointer text-slate-600">
+              <input type="checkbox" class="w-4 h-4 text-brand-600 rounded border-slate-300 focus:ring-brand-500">
+              <span>Ingat saya</span>
+            </label>
+            <a href="#" onclick="alert('Hubungi Staf Administrasi / Guru Tugas untuk reset kata sandi.'); return false;" class="text-brand-700 font-semibold hover:underline">Lupa sandi?</a>
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-4 bg-brand-600 hover:bg-brand-700 text-white font-bold rounded-xl shadow-lg shadow-brand-600/25 transition-all flex items-center justify-center gap-2 mt-2">
+            <span>Masuk ke Sistem</span>
+            <i class="fa-solid fa-arrow-right text-xs"></i>
+          </button>
+        </form>
+
+        <!-- FORM 2: REGISTRASI WALI MURID -->
+        <form id="formRegister" onsubmit="handleRegisterSubmit(event)" class="space-y-3.5 hidden">
+          <div class="bg-amber-50 border border-amber-200 text-amber-800 text-xs p-3 rounded-xl flex items-start gap-2.5 mb-2">
+            <i class="fa-solid fa-circle-info text-amber-600 mt-0.5 text-sm"></i>
+            <span>Gunakan <strong>Kode Murid / NIS</strong> yang tertera pada kartu santri (Contoh: <code>BM-TPA-001</code> atau <code>BM-MD-101</code>).</span>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Kode Murid (Unik)</label>
+              <input type="text" id="regKodeMurid" required placeholder="BM-TPA-001" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm font-semibold uppercase focus:ring-2 focus:ring-brand-600">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nama Lengkap Wali</label>
+              <input type="text" id="regNamaWali" required placeholder="Nama Orang Tua / Wali" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-600">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Username Baru</label>
+              <input type="text" id="regUsername" required placeholder="Contoh: wali_ayana" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-600">
+            </div>
+            <div>
+              <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nomor WhatsApp / HP</label>
+              <input type="tel" id="regNoHp" placeholder="08xxxxxxxxxx" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-600">
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Kata Sandi Baru</label>
+            <input type="password" id="regPassword" required placeholder="Minimal 6 karakter" class="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-brand-600">
+          </div>
+
+          <button type="submit" class="w-full py-3.5 px-4 bg-accent-500 hover:bg-accent-600 text-slate-900 font-bold rounded-xl shadow-lg shadow-accent-500/25 transition-all flex items-center justify-center gap-2 mt-3">
+            <span>Daftarkan Akun Wali Murid</span>
+            <i class="fa-solid fa-user-check text-xs"></i>
+          </button>
+        </form>
+
+        <div id="authStatusMsg" class="mt-4 text-xs font-medium text-center hidden p-2.5 rounded-lg"></div>
+
+        <!-- Akses Pintas -->
+        <div class="mt-6 pt-5 border-t border-slate-200 flex flex-wrap items-center justify-between gap-2 text-xs text-slate-500">
+          <span>Akses Langsung Halaman:</span>
+          <div class="flex gap-2">
+            <a href="dashboard-guru.html" class="px-2.5 py-1 bg-brand-50 text-brand-700 rounded-md font-semibold hover:bg-brand-100 transition-colors">Dashboard Guru</a>
+            <a href="rapor-santri.html" class="px-2.5 py-1 bg-amber-50 text-amber-800 rounded-md font-semibold hover:bg-amber-100 transition-colors">Cetak Rapor</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-white border-t border-slate-200 py-4 text-center text-xs text-slate-500">
+    <p>&copy; 2026 MD & TPA Bustanul Mustafidin. Hak Cipta Dilindungi.</p>
+  </footer>
+
+  <script>
+    function switchAuthTab(type) {
+      const loginForm = document.getElementById('formLogin');
+      const regForm = document.getElementById('formRegister');
+      const tabLoginBtn = document.getElementById('tabLoginBtn');
+      const tabRegisterBtn = document.getElementById('tabRegisterBtn');
+      const statusMsg = document.getElementById('authStatusMsg');
+      statusMsg.classList.add('hidden');
+
+      if (type === 'login') {
+        loginForm.classList.remove('hidden');
+        regForm.classList.add('hidden');
+        tabLoginBtn.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all shadow-sm bg-white text-brand-700";
+        tabRegisterBtn.className = "flex-1 py-2.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-xl transition-all";
+      } else {
+        loginForm.classList.add('hidden');
+        regForm.classList.remove('hidden');
+        tabRegisterBtn.className = "flex-1 py-2.5 text-xs sm:text-sm font-bold rounded-xl transition-all shadow-sm bg-white text-brand-700";
+        tabLoginBtn.className = "flex-1 py-2.5 text-xs sm:text-sm font-semibold text-slate-600 hover:text-slate-900 rounded-xl transition-all";
+      }
+    }
+
+    async function handleLoginSubmit(e) {
+      e.preventDefault();
+      const statusMsg = document.getElementById('authStatusMsg');
+      const username = document.getElementById('loginUsername').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+
+      statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-brand-50 text-brand-800 block";
+      statusMsg.innerText = "Memverifikasi akun...";
+
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-emerald-50 text-emerald-800 block";
+          statusMsg.innerText = `Login berhasil! Mengalihkan...`;
+          setTimeout(() => {
+            if (result.user.role === 'wali_murid') {
+              window.location.href = 'rapor-santri.html';
+            } else {
+              window.location.href = 'dashboard-guru.html';
+            }
+          }, 1000);
+        } else {
+          statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-rose-50 text-rose-800 block";
+          statusMsg.innerText = result.message || "Username atau kata sandi tidak cocok.";
+        }
+      } catch (err) {
+        statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-emerald-50 text-emerald-800 block";
+        statusMsg.innerText = `Mode Standalone Aktif: Mengalihkan ke Dashboard Guru...`;
+        setTimeout(() => { window.location.href = 'dashboard-guru.html'; }, 1000);
+      }
+    }
+
+    async function handleRegisterSubmit(e) {
+      e.preventDefault();
+      const statusMsg = document.getElementById('authStatusMsg');
+      const data = {
+        kode_murid: document.getElementById('regKodeMurid').value.trim(),
+        nama_wali: document.getElementById('regNamaWali').value.trim(),
+        username: document.getElementById('regUsername').value.trim(),
+        nomor_hp: document.getElementById('regNoHp').value.trim(),
+        password: document.getElementById('regPassword').value.trim()
+      };
+
+      statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-brand-50 text-brand-800 block";
+      statusMsg.innerText = "Mendaftarkan akun wali murid...";
+
+      try {
+        const response = await fetch('/api/auth/register-wali', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        const result = await response.json();
+
+        if (result.success) {
+          statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-emerald-50 text-emerald-800 block";
+          statusMsg.innerText = result.message;
+          setTimeout(() => { switchAuthTab('login'); }, 2000);
+        } else {
+          statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-rose-50 text-rose-800 block";
+          statusMsg.innerText = result.message;
+        }
+      } catch (err) {
+        statusMsg.className = "mt-4 text-xs font-medium text-center p-2.5 rounded-lg bg-rose-50 text-rose-800 block";
+        statusMsg.innerText = "Gagal terhubung ke API backend. Pastikan server node app.js sudah aktif.";
+      }
+    }
+  </script>
+</body>
+</html>
